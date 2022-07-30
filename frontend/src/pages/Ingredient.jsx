@@ -8,10 +8,21 @@ function Ingredient() {
 
   // comportement
   useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
     axios
       .get('http://localhost:4000/ingredients')
       .then(({ data }) => setIngredients(data));
-  }, [newIngredient]);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm('Voulez vous supprimer cet ingredient ?')) {
+      axios.delete('http://localhost:4000/ingredients/' + id);
+      getData();
+    }
+  };
 
   const handleChange = (event) => {
     setNewIngredient(event.target.value);
@@ -24,9 +35,12 @@ function Ingredient() {
       name: newIngredient,
       quantity: 0,
     };
+
     axios
       .post('http://localhost:4000/ingredients', data)
       .then(() => setNewIngredient(''));
+
+    getData();
   };
 
   // affichage (render)
@@ -49,7 +63,9 @@ function Ingredient() {
               <td>{ingredient.quantity}</td>
               <td>
                 <button>Modifier</button>
-                <button>Supprimer</button>
+                <button onClick={() => handleDelete(ingredient.id)}>
+                  Supprimer
+                </button>
               </td>
             </tr>
           ))}

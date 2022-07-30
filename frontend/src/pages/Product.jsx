@@ -6,7 +6,7 @@ function Product() {
   // affichage (render)
   return (
     <div>
-      <h1>Nouvelle produit</h1>
+      <h1>Nouveau produit</h1>
     </div>
   );
 }

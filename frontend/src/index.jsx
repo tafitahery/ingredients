@@ -8,11 +8,13 @@ import Ingredient from './pages/Ingredient';
 import Product from './pages/Product';
 import InReport from './pages/InReport';
 import OutReport from './pages/OutReport';
+import Navigation from './components/Navigation';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/in" element={<In />} />

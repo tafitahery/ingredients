@@ -6,7 +6,7 @@ function Ingredient() {
   // affichage (render)
   return (
     <div>
-      <h1>Nouvelle ingredient</h1>
+      <h1>Nouvel ingredient</h1>
     </div>
   );
 }

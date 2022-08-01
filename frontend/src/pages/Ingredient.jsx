@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import List from '../components/List';
+import TableIn from '../components/TableIn';
 import FormIn from '../components/FormIn';
 
 function Ingredient() {
   // state
   const [ingredients, setIngredients] = useState([]);
+  const [action, setAction] = useState('in');
+  const [ingredientSelected, setIngredientSelected] = useState('');
+  const [quantity, setQuantity] = useState(0.0);
+  const [minStock, setMinStock] = useState(0.0);
 
   // comportement
   useEffect(() => {
@@ -26,6 +30,22 @@ function Ingredient() {
     }
   };
 
+  const handleRadio = (event) => {
+    setAction(event.target.id);
+  };
+
+  const handleSelect = (event) => {
+    setIngredientSelected(event.target.value);
+  };
+
+  const handleQuantity = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleMinStock = (event) => {
+    setMinStock(event.target.value);
+  };
+
   const handleEdit = (id) => {};
 
   // affichage (render)
@@ -43,7 +63,7 @@ function Ingredient() {
         </thead>
         <tbody>
           {ingredients.map((ingredient) => (
-            <List
+            <TableIn
               key={ingredient.id}
               ingredient={ingredient}
               handleEdit={handleEdit}
@@ -57,29 +77,59 @@ function Ingredient() {
       <h2>Gestion du stock</h2>
       <form action="">
         <div>
-          <label htmlFor="action">Action</label>
-          <select id="action">
-            <option value="in">Entrée</option>
-            <option value="init">Stock initial</option>
-            <option value="out">Sortie</option>
-          </select>
+          <input
+            type="radio"
+            name="action"
+            id="init"
+            onChange={handleRadio}
+            checked={action === 'init'}
+          />
+          <label htmlFor="init">Initial</label>
+          <input
+            type="radio"
+            name="action"
+            id="in"
+            checked={action === 'in'}
+            onChange={handleRadio}
+          />
+          <label htmlFor="in">Entrée</label>
+          <input
+            type="radio"
+            name="action"
+            id="out"
+            onChange={handleRadio}
+            checked={action === 'out'}
+          />
+          <label htmlFor="out">Sortie</label>
         </div>
         <div>
           <label htmlFor="name">Nom</label>
-          <select id="name">
+          <select id="name" value={ingredientSelected} onChange={handleSelect}>
             <option value=""> --- </option>
             {ingredients.map((ingredient) => (
-              <option key={ingredient.id}>{ingredient.name}</option>
+              <option key={ingredient.id} value={ingredient.id}>
+                {ingredient.name}
+              </option>
             ))}
           </select>
         </div>
         <div>
           <label htmlFor="quantity">Quantité</label>
-          <input type="number" id="quantity" />
+          <input
+            type="number"
+            id="quantity"
+            value={quantity}
+            onChange={handleQuantity}
+          />
         </div>
         <div>
           <label htmlFor="minStock">Stock minimum</label>
-          <input type="number" id="minStock" />
+          <input
+            type="number"
+            id="minStock"
+            value={minStock}
+            onChange={handleMinStock}
+          />
         </div>
         <button>Valider</button>
       </form>

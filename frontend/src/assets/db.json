@@ -11,6 +11,12 @@
       "quantity": 0,
       "stockMin": 0,
       "id": 2
+    },
+    {
+      "name": "Lait",
+      "quantity": 0,
+      "stockMin": 0,
+      "id": 3
     }
   ]
 }

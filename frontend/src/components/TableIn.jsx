@@ -1,4 +1,4 @@
-export default function List({ ingredient, handleEdit, handleDelete }) {
+export default function TableIn({ ingredient, handleEdit, handleDelete }) {
   // state
 
   // comportement

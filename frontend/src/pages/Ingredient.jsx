@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import List from '../components/List';
-import Form from '../components/Form';
+import FormIn from '../components/FormIn';
 
 function Ingredient() {
   // state
   const [ingredients, setIngredients] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
 
   // comportement
   useEffect(() => {
@@ -27,9 +26,7 @@ function Ingredient() {
     }
   };
 
-  const handleEdit = (id) => {
-    setIsEditing(true);
-  };
+  const handleEdit = (id) => {};
 
   // affichage (render)
   return (
@@ -49,15 +46,43 @@ function Ingredient() {
             <List
               key={ingredient.id}
               ingredient={ingredient}
-              isEditing={isEditing}
-              handleDelete={handleDelete}
               handleEdit={handleEdit}
+              handleDelete={handleDelete}
             />
           ))}
         </tbody>
       </table>
       <h2>Nouvel ingredient</h2>
-      <Form getData={getData} />
+      <FormIn getData={getData} />
+      <h2>Gestion du stock</h2>
+      <form action="">
+        <div>
+          <label htmlFor="action">Action</label>
+          <select id="action">
+            <option value="in">Entrée</option>
+            <option value="init">Stock initial</option>
+            <option value="out">Sortie</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="name">Nom</label>
+          <select id="name">
+            <option value=""> --- </option>
+            {ingredients.map((ingredient) => (
+              <option key={ingredient.id}>{ingredient.name}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="quantity">Quantité</label>
+          <input type="number" id="quantity" />
+        </div>
+        <div>
+          <label htmlFor="minStock">Stock minimum</label>
+          <input type="number" id="minStock" />
+        </div>
+        <button>Valider</button>
+      </form>
     </div>
   );
 }

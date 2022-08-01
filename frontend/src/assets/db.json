@@ -3,22 +3,14 @@
     {
       "name": "Farine",
       "quantity": 0,
+      "stockMin": 0,
       "id": 1
     },
     {
       "name": "Sucre",
       "quantity": 0,
+      "stockMin": 0,
       "id": 2
-    },
-    {
-      "name": "Lait",
-      "quantity": 0,
-      "id": 3
-    },
-    {
-      "name": "Sel",
-      "quantity": 0,
-      "id": 4
     }
   ]
 }

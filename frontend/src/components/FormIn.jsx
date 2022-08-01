@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function Form({ getData }) {
+export default function FormIn({ getData }) {
   // state
   const [newIngredient, setNewIngredient] = useState('');
 
@@ -16,6 +16,7 @@ export default function Form({ getData }) {
     const data = {
       name: newIngredient,
       quantity: 0,
+      stockMin: 0,
     };
 
     axios.post('http://localhost:4000/ingredients', data).then(() => {

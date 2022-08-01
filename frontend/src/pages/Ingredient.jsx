@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import List from '../components/List';
+import Form from '../components/Form';
 
 function Ingredient() {
   // state
   const [ingredients, setIngredients] = useState([]);
-  const [newIngredient, setNewIngredient] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   // comportement
   useEffect(() => {
@@ -19,34 +21,20 @@ function Ingredient() {
 
   const handleDelete = (id) => {
     if (window.confirm('Voulez vous supprimer cet ingredient ?')) {
-      axios.delete('http://localhost:4000/ingredients/' + id);
-      getData();
+      axios
+        .delete('http://localhost:4000/ingredients/' + id)
+        .then(() => getData());
     }
   };
 
-  const handleChange = (event) => {
-    setNewIngredient(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const data = {
-      name: newIngredient,
-      quantity: 0,
-    };
-
-    axios
-      .post('http://localhost:4000/ingredients', data)
-      .then(() => setNewIngredient(''));
-
-    getData();
+  const handleEdit = (id) => {
+    setIsEditing(true);
   };
 
   // affichage (render)
   return (
     <div>
-      <h1>Nouvel ingredient</h1>
+      <h1>INGREDIENT</h1>
       <h2>Liste des ingredients</h2>
       <table>
         <thead>
@@ -58,29 +46,18 @@ function Ingredient() {
         </thead>
         <tbody>
           {ingredients.map((ingredient) => (
-            <tr key={ingredient.id}>
-              <td>{ingredient.name}</td>
-              <td>{ingredient.quantity}</td>
-              <td>
-                <button>Modifier</button>
-                <button onClick={() => handleDelete(ingredient.id)}>
-                  Supprimer
-                </button>
-              </td>
-            </tr>
+            <List
+              key={ingredient.id}
+              ingredient={ingredient}
+              isEditing={isEditing}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           ))}
         </tbody>
       </table>
       <h2>Nouvel ingredient</h2>
-      <form action="" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Ajoutez un nouvel ingredient ..."
-          value={newIngredient}
-          onChange={handleChange}
-        />{' '}
-        <button>Ajouter</button>
-      </form>
+      <Form getData={getData} />
     </div>
   );
 }

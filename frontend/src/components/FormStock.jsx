@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import RadioStock from './RadioStock';
+import OptionStock from './OptionStock';
 
 export default function FormStock({ ingredients, getData }) {
   // state
@@ -29,6 +31,14 @@ export default function FormStock({ ingredients, getData }) {
     (ingredient) => ingredient.id.toString() === ingredientSelected
   );
 
+  const newQuantity = ingredient
+    ? action === 'init'
+      ? parseFloat(quantity)
+      : action === 'in'
+      ? parseFloat(quantity) + ingredient.quantity
+      : ingredient.quantity - parseFloat(quantity)
+    : 0;
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -37,12 +47,6 @@ export default function FormStock({ ingredients, getData }) {
       return;
     }
 
-    const newQuantity =
-      action === 'init'
-        ? parseFloat(quantity)
-        : action === 'in'
-        ? parseFloat(quantity) + ingredient.quantity
-        : ingredient.quantity - parseFloat(quantity);
     const data = {
       name: ingredient.name,
       quantity: newQuantity ? newQuantity : ingredient.quantity,
@@ -62,29 +66,11 @@ export default function FormStock({ ingredients, getData }) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <input
-          type="radio"
-          name="action"
-          id="init"
-          onChange={handleRadio}
-          checked={action === 'init'}
-        />
+        <RadioStock action={action} handleRadio={handleRadio} value="init" />
         <label htmlFor="init">Initial</label>
-        <input
-          type="radio"
-          name="action"
-          id="in"
-          checked={action === 'in'}
-          onChange={handleRadio}
-        />
+        <RadioStock action={action} handleRadio={handleRadio} value="in" />
         <label htmlFor="in">Entrée</label>
-        <input
-          type="radio"
-          name="action"
-          id="out"
-          onChange={handleRadio}
-          checked={action === 'out'}
-        />
+        <RadioStock action={action} handleRadio={handleRadio} value="out" />
         <label htmlFor="out">Sortie</label>
       </div>
       <div>
@@ -92,9 +78,7 @@ export default function FormStock({ ingredients, getData }) {
         <select id="name" value={ingredientSelected} onChange={handleSelect}>
           <option value=""> --- </option>
           {ingredients.map((ingredient) => (
-            <option key={ingredient.id} value={ingredient.id}>
-              {ingredient.name}
-            </option>
+            <OptionStock key={ingredient.id} ingredient={ingredient} />
           ))}
         </select>
       </div>
@@ -106,6 +90,10 @@ export default function FormStock({ ingredients, getData }) {
           value={quantity}
           onChange={handleQuantity}
         />
+        <span>
+          Stock :{' '}
+          {quantity ? newQuantity : ingredient ? ingredient.quantity : 0}{' '}
+        </span>
       </div>
       <div>
         <label htmlFor="minStock">Stock minimum</label>

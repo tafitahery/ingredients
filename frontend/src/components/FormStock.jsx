@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import RadioStock from './RadioStock';
 import OptionStock from './OptionStock';
+import InputStock from './InputStock';
 
 export default function FormStock({ ingredients, getData }) {
   // state
@@ -84,12 +85,7 @@ export default function FormStock({ ingredients, getData }) {
       </div>
       <div>
         <label htmlFor="quantity">Quantité</label>
-        <input
-          type="number"
-          id="quantity"
-          value={quantity}
-          onChange={handleQuantity}
-        />
+        <InputStock id="quantity" value={quantity} onChange={handleQuantity} />
         <span>
           Stock :{' '}
           {quantity ? newQuantity : ingredient ? ingredient.quantity : 0}{' '}
@@ -97,12 +93,7 @@ export default function FormStock({ ingredients, getData }) {
       </div>
       <div>
         <label htmlFor="minStock">Stock minimum</label>
-        <input
-          type="number"
-          id="minStock"
-          value={minStock}
-          onChange={handleMinStock}
-        />
+        <InputStock id="minStock" value={minStock} onChange={handleMinStock} />
       </div>
       <button>Valider</button>
     </form>

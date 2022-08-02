@@ -2,20 +2,20 @@
   "ingredients": [
     {
       "name": "Farine",
-      "quantity": 0,
-      "stockMin": 0,
+      "quantity": "50",
+      "stockMin": 10,
       "id": 1
     },
     {
       "name": "Sucre",
-      "quantity": 0,
-      "stockMin": 0,
+      "quantity": 77.5,
+      "stockMin": 10,
       "id": 2
     },
     {
       "name": "Lait",
-      "quantity": 0,
-      "stockMin": 0,
+      "quantity": "20",
+      "stockMin": 5,
       "id": 3
     }
   ]

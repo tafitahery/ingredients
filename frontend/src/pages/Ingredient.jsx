@@ -9,7 +9,7 @@ function Ingredient() {
   const [action, setAction] = useState('in');
   const [ingredientSelected, setIngredientSelected] = useState('');
   const [quantity, setQuantity] = useState(0.0);
-  const [minStock, setMinStock] = useState(0.0);
+  const [minStock, setMinStock] = useState(10);
 
   // comportement
   useEffect(() => {
@@ -46,6 +46,39 @@ function Ingredient() {
     setMinStock(event.target.value);
   };
 
+  const ingredient = ingredients.find(
+    (ingredient) => ingredient.id.toString() === ingredientSelected
+  );
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!ingredientSelected || !quantity) {
+      alert('Vous devez bien remplir les champs');
+      return;
+    }
+
+    const newQuantity =
+      action === 'init'
+        ? quantity
+        : action === 'in'
+        ? parseFloat(quantity) + ingredient.quantity
+        : ingredient.quantity - parseFloat(quantity);
+    const data = {
+      name: ingredient.name,
+      quantity: newQuantity,
+      stockMin: parseFloat(minStock),
+    };
+
+    axios
+      .put('http://localhost:4000/ingredients/' + ingredientSelected, data)
+      .then(() => {
+        getData();
+        setQuantity(0.0);
+        setMinStock(10);
+      });
+  };
+
   const handleEdit = (id) => {};
 
   // affichage (render)
@@ -75,7 +108,7 @@ function Ingredient() {
       <h2>Nouvel ingredient</h2>
       <FormIn getData={getData} />
       <h2>Gestion du stock</h2>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div>
           <input
             type="radio"

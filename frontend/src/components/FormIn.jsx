@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function FormIn({ getData }) {
+export default function FormIn({ getData, getIngredient, id }) {
   // state
   const [newIngredient, setNewIngredient] = useState('');
 
   // comportement
+  const ingredient = getIngredient(id);
+
   const handleChange = (event) => {
     setNewIngredient(event.target.value);
   };
@@ -15,14 +17,21 @@ export default function FormIn({ getData }) {
 
     const data = {
       name: newIngredient,
-      quantity: 0,
-      stockMin: 0,
+      quantity: ingredient ? ingredient.quantity : 0,
+      stockMin: ingredient ? ingredient.stockMin : 0,
     };
 
-    axios.post('http://localhost:4000/ingredients', data).then(() => {
-      getData();
-      setNewIngredient('');
-    });
+    if (ingredient) {
+      axios.put('http://localhost:4000/ingredients/' + id, data).then(() => {
+        getData();
+        setNewIngredient('');
+      });
+    } else {
+      axios.post('http://localhost:4000/ingredients', data).then(() => {
+        getData();
+        setNewIngredient('');
+      });
+    }
   };
 
   // affichage (render)
@@ -31,10 +40,10 @@ export default function FormIn({ getData }) {
       <input
         type="text"
         placeholder="Ajoutez un ingredient ..."
-        value={newIngredient}
+        defaultValue={ingredient ? ingredient.name : newIngredient}
         onChange={handleChange}
       />{' '}
-      <button>Ajouter +</button>
+      <button>{ingredient ? 'Mettre à jour' : 'Ajouter +'}</button>
     </form>
   );
 }

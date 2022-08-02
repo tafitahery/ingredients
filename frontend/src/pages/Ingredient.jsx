@@ -7,6 +7,7 @@ import FormStock from '../components/FormStock';
 function Ingredient() {
   // state
   const [ingredients, setIngredients] = useState([]);
+  const [idToEdited, setIdToEdited] = useState('');
 
   // comportement
   useEffect(() => {
@@ -20,7 +21,9 @@ function Ingredient() {
   };
 
   const getIngredient = (id) => {
-    return ingredients.find((ingredient) => ingredient.id.toString() === id);
+    return ingredients.find(
+      (ingredient) => ingredient.id.toString() === id.toString()
+    );
   };
 
   const handleDelete = (id) => {
@@ -32,7 +35,7 @@ function Ingredient() {
   };
 
   const handleEdit = (id) => {
-    alert(id);
+    setIdToEdited(id);
   };
 
   // affichage (render)
@@ -60,7 +63,7 @@ function Ingredient() {
         </tbody>
       </table>
       <h2>Nouvel ingredient</h2>
-      <FormIn getData={getData} />
+      <FormIn getData={getData} getIngredient={getIngredient} id={idToEdited} />
       <h2>Gestion du stock</h2>
       <FormStock
         ingredients={ingredients}

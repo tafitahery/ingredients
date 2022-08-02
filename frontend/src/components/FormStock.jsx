@@ -4,7 +4,7 @@ import RadioStock from './RadioStock';
 import OptionStock from './OptionStock';
 import InputStock from './InputStock';
 
-export default function FormStock({ ingredients, getData }) {
+export default function FormStock({ ingredients, getData, getIngredient }) {
   // state
   const [action, setAction] = useState('in');
   const [ingredientSelected, setIngredientSelected] = useState('');
@@ -28,9 +28,7 @@ export default function FormStock({ ingredients, getData }) {
     setMinStock(event.target.value);
   };
 
-  const ingredient = ingredients.find(
-    (ingredient) => ingredient.id.toString() === ingredientSelected
-  );
+  const ingredient = getIngredient(ingredientSelected);
 
   const newQuantity = ingredient
     ? action === 'init'

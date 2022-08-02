@@ -19,6 +19,10 @@ function Ingredient() {
       .then(({ data }) => setIngredients(data));
   };
 
+  const getIngredient = (id) => {
+    return ingredients.find((ingredient) => ingredient.id.toString() === id);
+  };
+
   const handleDelete = (id) => {
     if (window.confirm('Voulez vous supprimer cet ingredient ?')) {
       axios
@@ -27,7 +31,9 @@ function Ingredient() {
     }
   };
 
-  const handleEdit = (id) => {};
+  const handleEdit = (id) => {
+    alert(id);
+  };
 
   // affichage (render)
   return (
@@ -56,7 +62,11 @@ function Ingredient() {
       <h2>Nouvel ingredient</h2>
       <FormIn getData={getData} />
       <h2>Gestion du stock</h2>
-      <FormStock ingredients={ingredients} getData={getData} />
+      <FormStock
+        ingredients={ingredients}
+        getData={getData}
+        getIngredient={getIngredient}
+      />
     </div>
   );
 }

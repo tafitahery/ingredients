@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import '../styles/Navigation.css';
 
 export default function Navigation() {
   // state
@@ -10,25 +11,25 @@ export default function Navigation() {
     <nav>
       <ul>
         <li>
-          <Link to="/">Acceuil</Link>
+          <NavLink to="/">Acceuil</NavLink>
         </li>
         <li>
-          <Link to="/in">Entrée</Link>
+          <NavLink to="/in">Entrée</NavLink>
         </li>
         <li>
-          <Link to="/out">Sortie</Link>
+          <NavLink to="/out">Sortie</NavLink>
         </li>
         <li>
-          <Link to="/ingredient">Ingredient</Link>
+          <NavLink to="/ingredient">Ingredient</NavLink>
         </li>
         <li>
-          <Link to="/product">Produit</Link>
+          <NavLink to="/product">Produit</NavLink>
         </li>
         <li>
-          <Link to="/inReport">Rapport d' entrée</Link>
+          <NavLink to="/inReport">Rapport d' entrée</NavLink>
         </li>
         <li>
-          <Link to="/outReport">Rapport de sortie</Link>
+          <NavLink to="/outReport">Rapport de sortie</NavLink>
         </li>
       </ul>
     </nav>

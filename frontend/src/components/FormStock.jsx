@@ -56,6 +56,7 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
       .put('http://localhost:4000/ingredients/' + ingredientSelected, data)
       .then(() => {
         getData();
+        setIngredientSelected('');
         setQuantity(0.0);
         setMinStock(10);
       });

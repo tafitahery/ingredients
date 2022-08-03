@@ -4,6 +4,8 @@ import TableIn from '../components/TableIn';
 import FormIn from '../components/FormIn';
 import FormStock from '../components/FormStock';
 
+import '../styles/Ingredient.css';
+
 function Ingredient() {
   // state
   const [ingredients, setIngredients] = useState([]);
@@ -42,34 +44,45 @@ function Ingredient() {
   return (
     <div>
       <h1>INGREDIENT</h1>
-      <h2>Liste des ingredients</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nom ingredient</th>
-            <th>Unité(s)</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {ingredients.map((ingredient) => (
-            <TableIn
-              key={ingredient.id}
-              ingredient={ingredient}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          ))}
-        </tbody>
-      </table>
-      <h2>Nouvel ingredient</h2>
-      <FormIn getData={getData} getIngredient={getIngredient} id={idToEdited} />
-      <h2>Gestion du stock</h2>
-      <FormStock
-        ingredients={ingredients}
-        getData={getData}
-        getIngredient={getIngredient}
-      />
+      <div className="container">
+        <div className="item">
+          <h2>Liste des ingredients</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Nom ingredient</th>
+                <th>Unité(s)</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {ingredients.map((ingredient) => (
+                <TableIn
+                  key={ingredient.id}
+                  ingredient={ingredient}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="item">
+          <h2>Nouvel ingredient</h2>
+          <FormIn
+            getData={getData}
+            getIngredient={getIngredient}
+            id={idToEdited}
+          />
+          <h2>Gestion du stock</h2>
+          <FormStock
+            ingredients={ingredients}
+            getData={getData}
+            getIngredient={getIngredient}
+          />
+        </div>
+      </div>
     </div>
   );
 }

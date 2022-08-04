@@ -4,8 +4,6 @@ import TableIn from '../components/TableIn';
 import FormIn from '../components/FormIn';
 import FormStock from '../components/FormStock';
 
-import '../styles/Ingredient.css';
-
 function Ingredient() {
   // state
   const [ingredients, setIngredients] = useState([]);
@@ -42,12 +40,12 @@ function Ingredient() {
 
   // affichage (render)
   return (
-    <div>
+    <div className="page">
       <h1>INGREDIENT</h1>
       <div className="container">
         <div className="item">
           <h2>Liste des ingredients</h2>
-          <table>
+          <table className="tableIn">
             <thead>
               <tr>
                 <th>Nom ingredient</th>

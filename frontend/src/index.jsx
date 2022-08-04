@@ -10,6 +10,9 @@ import InReport from './pages/InReport';
 import OutReport from './pages/OutReport';
 import Navigation from './components/Navigation';
 
+import './styles/Ingredient.css';
+import './styles/Form.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

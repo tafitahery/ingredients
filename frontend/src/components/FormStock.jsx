@@ -65,7 +65,7 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
   // affichage (render)
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="action">
         <RadioStock action={action} handleRadio={handleRadio} value="init" />
         <label htmlFor="init">Initial</label>
         <RadioStock action={action} handleRadio={handleRadio} value="in" />
@@ -85,10 +85,10 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
       <div>
         <label htmlFor="quantity">Quantité</label>
         <InputStock id="quantity" value={quantity} onChange={handleQuantity} />
-        <span>
+        <p>
           Stock :{' '}
           {quantity ? newQuantity : ingredient ? ingredient.quantity : 0}{' '}
-        </span>
+        </p>
       </div>
       <div>
         <label htmlFor="minStock">Stock minimum</label>

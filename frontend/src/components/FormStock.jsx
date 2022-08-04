@@ -83,12 +83,11 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
         </select>
       </div>
       <div>
-        <label htmlFor="quantity">Quantité</label>
+        <label htmlFor="quantity">
+          Quantité (
+          {quantity ? newQuantity : ingredient ? ingredient.quantity : 0})
+        </label>
         <InputStock id="quantity" value={quantity} onChange={handleQuantity} />
-        <p>
-          Stock :{' '}
-          {quantity ? newQuantity : ingredient ? ingredient.quantity : 0}{' '}
-        </p>
       </div>
       <div>
         <label htmlFor="minStock">Stock minimum</label>

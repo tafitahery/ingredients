@@ -1,11 +1,13 @@
 label {
+  display: inline-block;
   margin: 10px;
+  width: 21%;
 }
 
 input[type='text'],
 input[type='number'],
 select {
-  width: 60%;
+  width: 75%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -19,7 +21,7 @@ select {
 }
 
 form button {
-  width: 30%;
+  width: 20%;
   background-color: #4caf50;
   color: white;
   padding: 14px 20px;

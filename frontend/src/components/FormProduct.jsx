@@ -36,14 +36,23 @@ export default function FormProduct({ products, getData }) {
     setQuantity(event.target.value);
   };
 
+  const ingredient = getIngredient(ingredientSelected);
+
   const handleAdd = () => {
     const copyIngredient = [...ingredientProduct];
 
     const idIngredient = ingredientSelected;
-    const ingredientQuantity = quantity;
+    const nameIngredient = ingredient.name;
+    const ingredientQuantity = parseFloat(quantity);
     const date = Date.now();
 
-    const newIngredient = { idIngredient, ingredientQuantity, date };
+    const newIngredient = {
+      idIngredient,
+      nameIngredient,
+      ingredientQuantity,
+      date,
+    };
+
     copyIngredient.push(newIngredient);
 
     setIngredientProduct(copyIngredient);
@@ -51,8 +60,6 @@ export default function FormProduct({ products, getData }) {
     setIngredientSelected('');
     setQuantity(0);
   };
-
-  const ingredient = getIngredient(ingredientSelected);
 
   const newQuantity = ingredient;
 
@@ -117,6 +124,15 @@ export default function FormProduct({ products, getData }) {
             +
           </button>
         </div>
+      </div>
+      <div>
+        <ul>
+          {ingredientProduct.map((elt) => (
+            <li key={elt.date}>
+              {elt.nameIngredient} ({elt.ingredientQuantity}) <button>X</button>
+            </li>
+          ))}
+        </ul>
       </div>
       <button>Valider</button>
     </form>

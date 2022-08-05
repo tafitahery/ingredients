@@ -2,7 +2,12 @@
   "ingredients": [
     {
       "name": "Farines",
-      "quantity": 30.5,
+      "quantity": {
+        "name": "Farines",
+        "quantity": 30.5,
+        "stockMin": 10,
+        "id": 1
+      },
       "stockMin": 10,
       "id": 1
     },

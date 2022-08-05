@@ -28,6 +28,15 @@ select {
   width: 40%;
 }
 
+form ul {
+  list-style-type: square;
+  background-color: rgba(230, 250, 220, 0.8);
+}
+
+form li {
+  display: block;
+}
+
 form button {
   width: 20%;
   background-color: #4caf50;

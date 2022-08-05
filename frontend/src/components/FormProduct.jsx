@@ -7,7 +7,7 @@ export default function FormProduct({ products, getData }) {
   // state
   const [ingredients, setIngredients] = useState([]);
   const [ingredientSelected, setIngredientSelected] = useState('');
-  const [ingredientForProduct, setIngredientForProduct] = useState([]);
+  const [ingredientProduct, setIngredientProduct] = useState([]);
   const [quantity, setQuantity] = useState(0.0);
   const [minStock, setMinStock] = useState(10);
 
@@ -37,7 +37,19 @@ export default function FormProduct({ products, getData }) {
   };
 
   const handleAdd = () => {
-    alert('Ajouter');
+    const copyIngredient = [...ingredientProduct];
+
+    const idIngredient = ingredientSelected;
+    const ingredientQuantity = quantity;
+    const date = Date.now();
+
+    const newIngredient = { idIngredient, ingredientQuantity, date };
+    copyIngredient.push(newIngredient);
+
+    setIngredientProduct(copyIngredient);
+
+    setIngredientSelected('');
+    setQuantity(0);
   };
 
   const ingredient = getIngredient(ingredientSelected);

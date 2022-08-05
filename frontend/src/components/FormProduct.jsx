@@ -36,8 +36,7 @@ export default function FormProduct({ products, getData }) {
     setQuantity(event.target.value);
   };
 
-  const handleAdd = (event) => {
-    event.preventDefault();
+  const handleAdd = () => {
     alert('Ajouter');
   };
 
@@ -76,36 +75,37 @@ export default function FormProduct({ products, getData }) {
         <label htmlFor="name">Nom du produit</label>
         <input type="text" id="name" placeholder="Nom du nouveau produit" />
       </div>
-      <form action="">
-        <div className="ingredient-container">
-          <div className="ingredient-in">
-            <label htmlFor="ingredient">Ingredient</label>
-            <select
-              id="ingredient"
-              value={ingredientSelected}
-              onChange={handleSelect}
-            >
-              <option value=""> --- </option>
-              {ingredients.map((ingredient) => (
-                <OptionStock key={ingredient.id} ingredient={ingredient} />
-              ))}
-            </select>
-          </div>
 
-          <div className="ingredient-in">
-            <label htmlFor="quantity">Quantité</label>
-            <InputStock
-              id="quantity"
-              value={quantity}
-              onChange={handleQuantity}
-            />
-          </div>
-          <div>
-            <label htmlFor="add">Ajouter</label> <br />
-            <button onClick={handleAdd}>+</button>
-          </div>
+      <div className="ingredient-container">
+        <div className="ingredient-in">
+          <label htmlFor="ingredient">Ingredient</label>
+          <select
+            id="ingredient"
+            value={ingredientSelected}
+            onChange={handleSelect}
+          >
+            <option value=""> --- </option>
+            {ingredients.map((ingredient) => (
+              <OptionStock key={ingredient.id} ingredient={ingredient} />
+            ))}
+          </select>
         </div>
-      </form>
+
+        <div className="ingredient-in">
+          <label htmlFor="quantity">Quantité</label>
+          <InputStock
+            id="quantity"
+            value={quantity}
+            onChange={handleQuantity}
+          />
+        </div>
+        <div>
+          <label htmlFor="add">Ajouter</label> <br />
+          <button type="button" onClick={handleAdd}>
+            +
+          </button>
+        </div>
+      </div>
       <button>Valider</button>
     </form>
   );

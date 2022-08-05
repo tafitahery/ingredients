@@ -44,6 +44,20 @@ function Ingredient() {
       <h1>INGREDIENT</h1>
       <div className="container">
         <div className="item">
+          <h2>Nouvel ingredient</h2>
+          <FormIn
+            getData={getData}
+            getIngredient={getIngredient}
+            id={idToEdited}
+          />
+          <h2>Gestion du stock</h2>
+          <FormStock
+            ingredients={ingredients}
+            getData={getData}
+            getIngredient={getIngredient}
+          />
+        </div>
+        <div className="item">
           <h2>Liste des ingredients</h2>
           <table className="tableIn">
             <thead>
@@ -64,21 +78,6 @@ function Ingredient() {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="item">
-          <h2>Nouvel ingredient</h2>
-          <FormIn
-            getData={getData}
-            getIngredient={getIngredient}
-            id={idToEdited}
-          />
-          <h2>Gestion du stock</h2>
-          <FormStock
-            ingredients={ingredients}
-            getData={getData}
-            getIngredient={getIngredient}
-          />
         </div>
       </div>
     </div>

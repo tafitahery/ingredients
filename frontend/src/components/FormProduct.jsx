@@ -70,19 +70,22 @@ export default function FormProduct({ products, getData }) {
         <label htmlFor="name">Nom du produit</label>
         <input type="text" id="name" placeholder="Nom du nouveau produit" />
       </div>
-      <div>
-        <label htmlFor="ingredient">Ingredient</label>
-        <select
-          id="ingredient"
-          value={ingredientSelected}
-          onChange={handleSelect}
-        >
-          <option value=""> --- </option>
-          {ingredients.map((ingredient) => (
-            <OptionStock key={ingredient.id} ingredient={ingredient} />
-          ))}
-        </select>
-        <div>
+      <div className="ingredient-container">
+        <div className="ingredient-in">
+          <label htmlFor="ingredient">Ingredient</label>
+          <select
+            id="ingredient"
+            value={ingredientSelected}
+            onChange={handleSelect}
+          >
+            <option value=""> --- </option>
+            {ingredients.map((ingredient) => (
+              <OptionStock key={ingredient.id} ingredient={ingredient} />
+            ))}
+          </select>
+        </div>
+
+        <div className="ingredient-in">
           <label htmlFor="quantity">Quantité</label>
           <InputStock
             id="quantity"
@@ -90,7 +93,10 @@ export default function FormProduct({ products, getData }) {
             onChange={handleQuantity}
           />
         </div>
-        <button>Ajouter</button>
+        <div>
+          <label htmlFor="add">Ajouter</label> <br />
+          <button>+</button>
+        </div>
       </div>
       <button>Valider</button>
     </form>

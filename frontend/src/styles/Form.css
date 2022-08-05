@@ -20,6 +20,14 @@ select {
   text-align: center;
 }
 
+.ingredient-container {
+  display: flex;
+}
+
+.ingredient-in {
+  width: 40%;
+}
+
 form button {
   width: 20%;
   background-color: #4caf50;

@@ -3,7 +3,7 @@ h1 {
 }
 .container {
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 50% 50%;
   background-color: white;
   margin-top: 0;
   padding: 0px;

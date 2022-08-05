@@ -33,6 +33,10 @@ function Product() {
       <h1>Produit</h1>
       <div className="container">
         <div className="item">
+          <h2>Gestion du stock</h2>
+          <FormProduct products={products} getData={getData} />
+        </div>
+        <div className="item">
           <h2>Liste des produit</h2>
           <table className="tableIn">
             <thead>
@@ -53,11 +57,6 @@ function Product() {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="item">
-          <h2>Gestion du stock</h2>
-          <FormProduct products={products} getData={getData} />
         </div>
       </div>
     </div>

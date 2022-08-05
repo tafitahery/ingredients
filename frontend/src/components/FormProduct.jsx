@@ -7,6 +7,7 @@ export default function FormProduct({ products, getData }) {
   // state
   const [ingredients, setIngredients] = useState([]);
   const [ingredientSelected, setIngredientSelected] = useState('');
+  const [ingredientForProduct, setIngredientForProduct] = useState([]);
   const [quantity, setQuantity] = useState(0.0);
   const [minStock, setMinStock] = useState(10);
 
@@ -33,6 +34,11 @@ export default function FormProduct({ products, getData }) {
 
   const handleQuantity = (event) => {
     setQuantity(event.target.value);
+  };
+
+  const handleAdd = (event) => {
+    event.preventDefault();
+    alert('Ajouter');
   };
 
   const ingredient = getIngredient(ingredientSelected);
@@ -70,34 +76,36 @@ export default function FormProduct({ products, getData }) {
         <label htmlFor="name">Nom du produit</label>
         <input type="text" id="name" placeholder="Nom du nouveau produit" />
       </div>
-      <div className="ingredient-container">
-        <div className="ingredient-in">
-          <label htmlFor="ingredient">Ingredient</label>
-          <select
-            id="ingredient"
-            value={ingredientSelected}
-            onChange={handleSelect}
-          >
-            <option value=""> --- </option>
-            {ingredients.map((ingredient) => (
-              <OptionStock key={ingredient.id} ingredient={ingredient} />
-            ))}
-          </select>
-        </div>
+      <form action="">
+        <div className="ingredient-container">
+          <div className="ingredient-in">
+            <label htmlFor="ingredient">Ingredient</label>
+            <select
+              id="ingredient"
+              value={ingredientSelected}
+              onChange={handleSelect}
+            >
+              <option value=""> --- </option>
+              {ingredients.map((ingredient) => (
+                <OptionStock key={ingredient.id} ingredient={ingredient} />
+              ))}
+            </select>
+          </div>
 
-        <div className="ingredient-in">
-          <label htmlFor="quantity">Quantité</label>
-          <InputStock
-            id="quantity"
-            value={quantity}
-            onChange={handleQuantity}
-          />
+          <div className="ingredient-in">
+            <label htmlFor="quantity">Quantité</label>
+            <InputStock
+              id="quantity"
+              value={quantity}
+              onChange={handleQuantity}
+            />
+          </div>
+          <div>
+            <label htmlFor="add">Ajouter</label> <br />
+            <button onClick={handleAdd}>+</button>
+          </div>
         </div>
-        <div>
-          <label htmlFor="add">Ajouter</label> <br />
-          <button>+</button>
-        </div>
-      </div>
+      </form>
       <button>Valider</button>
     </form>
   );

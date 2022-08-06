@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import OptionStock from './OptionStock';
 import InputStock from './InputStock';
+import ListIngredient from './ListIngredient';
 
 export default function FormProduct({ getData }) {
   // state
@@ -149,17 +150,12 @@ export default function FormProduct({ getData }) {
       </div>
       <div>
         <ul>
-          {ingredientProduct.map((elt) => (
-            <li key={elt.id}>
-              {elt.name} ({elt.qty}){' '}
-              <button
-                type="button"
-                className="delete"
-                onClick={() => handleDelete(elt.id)}
-              >
-                X
-              </button>
-            </li>
+          {ingredientProduct.map((ingredient) => (
+            <ListIngredient
+              key={ingredient.id}
+              ingredient={ingredient}
+              onClick={() => handleDelete(ingredient.id)}
+            />
           ))}
         </ul>
       </div>

@@ -37,6 +37,16 @@ form li {
   display: block;
 }
 
+.delete {
+  width: auto;
+  height: auto;
+  background-color: rgb(231, 156, 156);
+}
+
+.delete:hover {
+  background-color: red;
+}
+
 form button {
   width: 20%;
   background-color: #4caf50;

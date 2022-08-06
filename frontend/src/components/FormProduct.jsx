@@ -3,7 +3,7 @@ import axios from 'axios';
 import OptionStock from './OptionStock';
 import InputStock from './InputStock';
 
-export default function FormProduct({ products, getData }) {
+export default function FormProduct({ getData }) {
   // state
   const [ingredients, setIngredients] = useState([]);
   const [ingredientSelected, setIngredientSelected] = useState('');
@@ -36,36 +36,43 @@ export default function FormProduct({ products, getData }) {
     setQuantity(event.target.value);
   };
 
+  const handleDelete = (id) => {
+    const copyIngredient = [...ingredientProduct];
+    const fileterdIngredient = copyIngredient.filter(
+      (ingredient) => ingredient.id !== id
+    );
+    setIngredientProduct(fileterdIngredient);
+  };
+
   const ingredient = getIngredient(ingredientSelected);
 
   const handleAdd = () => {
     const copyIngredient = [...ingredientProduct];
 
-    const idIngredient = ingredientSelected;
-    const nameIngredient = ingredient.name;
-    const ingredientQuantity = parseFloat(quantity);
+    const id = ingredientSelected;
+    const name = ingredient.name;
+    const qty = parseFloat(quantity);
 
     const newIngredient = {
-      idIngredient,
-      nameIngredient,
-      ingredientQuantity,
+      id,
+      name,
+      qty,
     };
 
     const currentIngredientAdded = copyIngredient.find(
-      (ingredient) => ingredient.idIngredient === idIngredient
+      (ingredient) => ingredient.id === id
     );
 
     if (currentIngredientAdded) {
       const filteredIngredients = copyIngredient.filter(
-        (ingredient) => ingredient.idIngredient !== idIngredient
+        (ingredient) => ingredient.id !== id
       );
       setIngredientProduct([
         ...filteredIngredients,
         {
-          idIngredient,
-          nameIngredient,
-          ingredientQuantity:
-            ingredientQuantity + currentIngredientAdded.ingredientQuantity,
+          id,
+          name,
+          qty: qty + currentIngredientAdded.qty,
         },
       ]);
     } else {
@@ -143,8 +150,15 @@ export default function FormProduct({ products, getData }) {
       <div>
         <ul>
           {ingredientProduct.map((elt) => (
-            <li key={elt.idIngredient}>
-              {elt.nameIngredient} ({elt.ingredientQuantity}) <button>X</button>
+            <li key={elt.id}>
+              {elt.name} ({elt.qty}){' '}
+              <button
+                type="button"
+                className="delete"
+                onClick={() => handleDelete(elt.id)}
+              >
+                X
+              </button>
             </li>
           ))}
         </ul>

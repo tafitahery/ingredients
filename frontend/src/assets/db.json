@@ -8,13 +8,23 @@
     },
     {
       "name": "Sucres",
-      "quantity": 37.8,
+      "quantity": {
+        "name": "Sucres",
+        "quantity": 37.8,
+        "stockMin": 10,
+        "id": 2
+      },
       "stockMin": 10,
       "id": 2
     },
     {
       "name": "Laits",
-      "quantity": 19.5,
+      "quantity": {
+        "name": "Laits",
+        "quantity": 19.5,
+        "stockMin": 10,
+        "id": 3
+      },
       "stockMin": 10,
       "id": 3
     },

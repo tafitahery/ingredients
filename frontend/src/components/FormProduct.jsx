@@ -6,11 +6,11 @@ import ListIngredient from './ListIngredient';
 
 export default function FormProduct({ getData }) {
   // state
+  const [productName, setProductName] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [ingredientSelected, setIngredientSelected] = useState('');
   const [ingredientProduct, setIngredientProduct] = useState([]);
   const [quantity, setQuantity] = useState(0.0);
-  const [minStock, setMinStock] = useState(10);
 
   // comportement
   useEffect(() => {
@@ -27,6 +27,10 @@ export default function FormProduct({ getData }) {
     return ingredients.find(
       (ingredient) => ingredient.id.toString() === id.toString()
     );
+  };
+
+  const handleName = (event) => {
+    setProductName(event.target.value);
   };
 
   const handleSelect = (event) => {
@@ -48,6 +52,8 @@ export default function FormProduct({ getData }) {
   const ingredient = getIngredient(ingredientSelected);
 
   const handleAdd = () => {
+    if (!ingredientSelected) return;
+
     const copyIngredient = [...ingredientProduct];
 
     const id = ingredientSelected;
@@ -84,30 +90,24 @@ export default function FormProduct({ getData }) {
     setQuantity(0);
   };
 
-  const newQuantity = ingredient;
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!ingredientSelected) {
+    if (!productName) {
       alert('Vous devez remplir le champ nom');
       return;
     }
 
     const data = {
-      name: ingredient.name,
-      quantity: newQuantity ? newQuantity : ingredient.quantity,
-      stockMin: parseFloat(minStock),
+      name: productName,
+      ingredients: ingredientProduct,
     };
 
-    axios
-      .put('http://localhost:4000/ingredients/' + ingredientSelected, data)
-      .then(() => {
-        getData();
-        setIngredientSelected('');
-        setQuantity(0.0);
-        setMinStock(10);
-      });
+    axios.post('http://localhost:4000/products', data).then(() => {
+      getData();
+      setProductName('');
+      setIngredientProduct([]);
+    });
   };
 
   // affichage (render)
@@ -115,7 +115,13 @@ export default function FormProduct({ getData }) {
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Nom du produit</label>
-        <input type="text" id="name" placeholder="Nom du nouveau produit" />
+        <input
+          type="text"
+          id="name"
+          placeholder="Nom du nouveau produit"
+          value={productName}
+          onChange={handleName}
+        />
       </div>
 
       <div className="ingredient-container">

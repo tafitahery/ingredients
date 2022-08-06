@@ -44,18 +44,33 @@ export default function FormProduct({ products, getData }) {
     const idIngredient = ingredientSelected;
     const nameIngredient = ingredient.name;
     const ingredientQuantity = parseFloat(quantity);
-    const date = Date.now();
 
     const newIngredient = {
       idIngredient,
       nameIngredient,
       ingredientQuantity,
-      date,
     };
 
-    copyIngredient.push(newIngredient);
+    const currentIngredientAdded = copyIngredient.find(
+      (ingredient) => ingredient.idIngredient === idIngredient
+    );
 
-    setIngredientProduct(copyIngredient);
+    if (currentIngredientAdded) {
+      const filteredIngredients = copyIngredient.filter(
+        (ingredient) => ingredient.idIngredient !== idIngredient
+      );
+      setIngredientProduct([
+        ...filteredIngredients,
+        {
+          idIngredient,
+          nameIngredient,
+          ingredientQuantity:
+            ingredientQuantity + currentIngredientAdded.ingredientQuantity,
+        },
+      ]);
+    } else {
+      setIngredientProduct([...copyIngredient, newIngredient]);
+    }
 
     setIngredientSelected('');
     setQuantity(0);
@@ -128,7 +143,7 @@ export default function FormProduct({ products, getData }) {
       <div>
         <ul>
           {ingredientProduct.map((elt) => (
-            <li key={elt.date}>
+            <li key={elt.idIngredient}>
               {elt.nameIngredient} ({elt.ingredientQuantity}) <button>X</button>
             </li>
           ))}

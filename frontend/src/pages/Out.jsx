@@ -12,23 +12,19 @@ function Out() {
 
   // comportement
   useEffect(() => {
-    getIngredients();
+    getAllElement('http://localhost:4000/ingredients', setIngredients);
   }, []);
 
   useEffect(() => {
-    getProducts();
+    getAllElement('http://localhost:4000/products', setProducts);
   }, []);
 
-  const getIngredients = () => {
-    axios
-      .get('http://localhost:4000/ingredients')
-      .then(({ data }) => setIngredients(data));
+  const getAllElement = (url, setter) => {
+    axios.get(url).then(({ data }) => setter(data));
   };
 
-  const getProducts = () => {
-    axios
-      .get('http://localhost:4000/products')
-      .then(({ data }) => setProducts(data));
+  const getOneElement = (all, id) => {
+    return all.find((one) => one.id.toString() === id.toString());
   };
 
   const handleProduct = (event) => {
@@ -39,6 +35,28 @@ function Out() {
     setQuantity(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const product = getOneElement(products, productSelected);
+
+    product.ingredients.map((ingredient) => {
+      const currentIngredient = getOneElement(ingredients, ingredient.id);
+      const data = {
+        name: currentIngredient.name,
+        quantity:
+          currentIngredient.quantity - ingredient.qty * parseFloat(quantity),
+        stockMin: currentIngredient.stockMin,
+      };
+      const response = axios.put(
+        'http://localhost:4000/ingredients/' + ingredient.id,
+        data
+      );
+
+      return Promise.all(response).then((values) => console.log(values));
+    });
+  };
+
   // affichage (render)
   return (
     <div>
@@ -46,7 +64,7 @@ function Out() {
       <div className="container">
         <div className="item">
           <h2>Sortie de produit</h2>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name">Nom</label>
               <select

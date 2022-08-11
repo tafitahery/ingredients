@@ -5,27 +5,28 @@ import TableIn from '../components/TableIn';
 function Out() {
   // state
   const [ingredients, setIngredients] = useState([]);
+  const [products, setProducts] = useState([]);
 
   // comportement
   useEffect(() => {
-    getData();
+    getIngredients();
   }, []);
 
-  const getData = () => {
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getIngredients = () => {
     axios
       .get('http://localhost:4000/ingredients')
       .then(({ data }) => setIngredients(data));
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Voulez vous supprimer cet ingredient ?')) {
-      axios
-        .delete('http://localhost:4000/ingredients/' + id)
-        .then(() => getData());
-    }
+  const getProducts = () => {
+    axios
+      .get('http://localhost:4000/products')
+      .then(({ data }) => setProducts(data));
   };
-
-  const handleEdit = (id) => {};
 
   // affichage (render)
   return (
@@ -42,17 +43,11 @@ function Out() {
               <tr>
                 <th>Nom ingredient</th>
                 <th>Unité(s)</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
               {ingredients.map((ingredient) => (
-                <TableIn
-                  key={ingredient.id}
-                  ingredient={ingredient}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                />
+                <TableIn key={ingredient.id} ingredient={ingredient} />
               ))}
             </tbody>
           </table>

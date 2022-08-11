@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import TableIn from '../components/TableIn';
 import FormProduct from '../components/FormProduct';
 
 function Product() {
@@ -47,13 +46,27 @@ function Product() {
               </tr>
             </thead>
             <tbody>
-              {products.map((ingredient) => (
-                <TableIn
-                  key={ingredient.id}
-                  ingredient={ingredient}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                />
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td>
+                    <ul>
+                      {product.ingredients.map((ingredient) => (
+                        <li key={ingredient.id}>
+                          {ingredient.name}({ingredient.qty})
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <button onClick={() => handleEdit(product.id)}>
+                      Modifier
+                    </button>
+                    <button onClick={() => handleDelete(product.id)}>
+                      Supprimer
+                    </button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

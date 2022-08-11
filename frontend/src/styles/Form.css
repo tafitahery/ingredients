@@ -28,8 +28,8 @@ select {
   width: 40%;
 }
 
-form ul {
-  list-style-type: square;
+form ul,
+td ul {
   background-color: rgba(230, 250, 220, 0.8);
 }
 

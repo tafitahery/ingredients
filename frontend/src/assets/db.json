@@ -59,12 +59,12 @@
         {
           "id": "1",
           "name": "Farines",
-          "qty": 0.1
+          "qty": 0.05
         },
         {
           "id": "2",
           "name": "Sucres",
-          "qty": 0.05
+          "qty": 0.025
         },
         {
           "id": "3",

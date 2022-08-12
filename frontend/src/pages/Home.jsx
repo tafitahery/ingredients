@@ -53,6 +53,10 @@ function Home() {
         data
       );
     });
+
+    getAllElement('http://localhost:4000/ingredients', setIngredients);
+    setProductSelected('');
+    setQuantity(0);
   };
 
   // affichage (render)

@@ -48,12 +48,10 @@ function Out() {
           currentIngredient.quantity - ingredient.qty * parseFloat(quantity),
         stockMin: currentIngredient.stockMin,
       };
-      const response = axios.put(
+      return axios.put(
         'http://localhost:4000/ingredients/' + ingredient.id,
         data
       );
-
-      return Promise.all(response).then((values) => console.log(values));
     });
   };
 

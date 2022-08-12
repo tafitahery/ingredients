@@ -34,27 +34,24 @@
   "products": [
     {
       "name": "Pain",
+      "qauntity": 0,
       "ingredients": [
         {
           "id": "1",
           "name": "Farines",
-          "qty": 0.1
+          "qty": 0.05
         },
         {
           "id": "2",
           "name": "Sucres",
           "qty": 0.025
-        },
-        {
-          "id": "3",
-          "name": "Laits",
-          "qty": 0.05
         }
       ],
       "id": 1
     },
     {
       "name": "Cake",
+      "qauntity": 0,
       "ingredients": [
         {
           "id": "1",
@@ -69,12 +66,12 @@
         {
           "id": "3",
           "name": "Laits",
-          "qty": 0.05
+          "qty": 0.1
         },
         {
           "id": "5",
           "name": "Oeufs",
-          "qty": 1
+          "qty": 0.5
         }
       ],
       "id": 2

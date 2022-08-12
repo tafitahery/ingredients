@@ -100,6 +100,7 @@ export default function FormProduct({ getData }) {
 
     const data = {
       name: productName,
+      qauntity: 0,
       ingredients: ingredientProduct,
     };
 

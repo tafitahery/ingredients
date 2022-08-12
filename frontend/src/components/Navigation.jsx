@@ -14,12 +14,6 @@ export default function Navigation() {
           <NavLink to="/">Acceuil</NavLink>
         </li>
         <li>
-          <NavLink to="/in">Entrée</NavLink>
-        </li>
-        <li>
-          <NavLink to="/out">Sortie</NavLink>
-        </li>
-        <li>
           <NavLink to="/ingredient">Ingredient</NavLink>
         </li>
         <li>

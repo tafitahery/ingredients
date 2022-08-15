@@ -20,10 +20,7 @@ export default function Navigation() {
           <NavLink to="/product">Produit</NavLink>
         </li>
         <li>
-          <NavLink to="/inReport">Rapport d' entrée</NavLink>
-        </li>
-        <li>
-          <NavLink to="/outReport">Rapport de sortie</NavLink>
+          <NavLink to="/inventory">Inventaire</NavLink>
         </li>
       </ul>
     </nav>

@@ -4,8 +4,7 @@ import Home from './pages/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Ingredient from './pages/Ingredient';
 import Product from './pages/Product';
-import InReport from './pages/InReport';
-import OutReport from './pages/OutReport';
+import InReport from './pages/Inventory';
 import Navigation from './components/Navigation';
 
 import './styles/Ingredient.css';
@@ -20,8 +19,7 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="/ingredient" element={<Ingredient />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/inReport" element={<InReport />} />
-        <Route path="/outReport" element={<OutReport />} />
+        <Route path="/inventory" element={<InReport />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

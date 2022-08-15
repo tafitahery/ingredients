@@ -1,4 +1,4 @@
-function InReport() {
+function Inventory() {
   // state
 
   // comportement
@@ -6,9 +6,9 @@ function InReport() {
   // affichage (render)
   return (
     <div>
-      <h1>Rapport d' entrée</h1>
+      <h1>Inventaire</h1>
     </div>
   );
 }
 
-export default InReport;
+export default Inventory;

@@ -2,19 +2,19 @@
   "ingredients": [
     {
       "name": "Farines",
-      "quantity": 95.5,
+      "quantity": 92.9,
       "stockMin": 10,
       "id": 1
     },
     {
       "name": "Sucres",
-      "quantity": 97.25,
+      "quantity": 95.95,
       "stockMin": 10,
       "id": 2
     },
     {
       "name": "Laits",
-      "quantity": 93,
+      "quantity": 88.9,
       "stockMin": 10,
       "id": 3
     },
@@ -26,7 +26,7 @@
     },
     {
       "name": "Oeufs",
-      "quantity": 70,
+      "quantity": 49.5,
       "stockMin": 10,
       "id": 5
     }
@@ -34,7 +34,7 @@
   "products": [
     {
       "name": "Pain",
-      "quantity": 62,
+      "quantity": 63,
       "ingredients": [
         {
           "id": "1",
@@ -51,7 +51,7 @@
     },
     {
       "name": "Cake",
-      "quantity": 76,
+      "quantity": 82,
       "ingredients": [
         {
           "id": "1",

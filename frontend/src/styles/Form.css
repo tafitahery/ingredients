@@ -47,7 +47,8 @@ form li {
   background-color: red;
 }
 
-form button {
+form button,
+.valid-btn {
   width: 20%;
   background-color: #4caf50;
   color: white;

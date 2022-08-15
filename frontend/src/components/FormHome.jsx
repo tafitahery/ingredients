@@ -33,8 +33,12 @@ export default function FormHome({
       const currentIngredient = getOneElement(ingredients, ingredient.id);
       const data = {
         name: currentIngredient.name,
-        quantity:
-          currentIngredient.quantity - ingredient.qty * parseFloat(quantity),
+        quantity: Number(
+          (
+            currentIngredient.quantity -
+            ingredient.qty * parseInt(quantity)
+          ).toFixed(3)
+        ),
         stockMin: currentIngredient.stockMin,
       };
       promise.push(

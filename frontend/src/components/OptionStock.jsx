@@ -4,5 +4,5 @@ export default function OptionStock({ ingredient }) {
   // comportements
 
   // affichage
-  return <option value={ingredient.id}>{ingredient.name}</option>;
+  return <option value={ingredient._id}>{ingredient.name}</option>;
 }

@@ -53,7 +53,7 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
     };
 
     axios
-      .put('http://localhost:4000/ingredients/' + ingredientSelected, data)
+      .put('http://localhost:4000/api/ingredients/' + ingredientSelected, data)
       .then(() => {
         getData();
         setIngredientSelected('');
@@ -78,7 +78,7 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
         <select id="name" value={ingredientSelected} onChange={handleSelect}>
           <option value=""> --- </option>
           {ingredients.map((ingredient) => (
-            <OptionStock key={ingredient.id} ingredient={ingredient} />
+            <OptionStock key={ingredient._id} ingredient={ingredient} />
           ))}
         </select>
       </div>

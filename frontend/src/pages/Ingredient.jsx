@@ -16,20 +16,20 @@ function Ingredient() {
 
   const getData = () => {
     axios
-      .get('http://localhost:4000/ingredients')
+      .get('http://localhost:4000/api/ingredients')
       .then(({ data }) => setIngredients(data));
   };
 
   const getIngredient = (id) => {
     return ingredients.find(
-      (ingredient) => ingredient.id.toString() === id.toString()
+      (ingredient) => ingredient._id.toString() === id.toString()
     );
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Voulez vous supprimer cet ingredient ?')) {
       axios
-        .delete('http://localhost:4000/ingredients/' + id)
+        .delete('http://localhost:4000/api/ingredients/' + id)
         .then(() => getData());
     }
   };
@@ -70,7 +70,7 @@ function Ingredient() {
             <tbody>
               {ingredients.map((ingredient) => (
                 <TableIn
-                  key={ingredient.id}
+                  key={ingredient._id}
                   ingredient={ingredient}
                   handleEdit={handleEdit}
                   handleDelete={handleDelete}

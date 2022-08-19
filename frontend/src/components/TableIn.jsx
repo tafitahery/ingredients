@@ -10,8 +10,10 @@ export default function TableIn({ ingredient, handleEdit, handleDelete }) {
       <td>{ingredient.quantity}</td>
       {handleDelete && handleEdit && (
         <td>
-          <button onClick={() => handleEdit(ingredient.id)}>Modifier</button>
-          <button onClick={() => handleDelete(ingredient.id)}>Supprimer</button>
+          <button onClick={() => handleEdit(ingredient._id)}>Modifier</button>
+          <button onClick={() => handleDelete(ingredient._id)}>
+            Supprimer
+          </button>
         </td>
       )}
     </tr>

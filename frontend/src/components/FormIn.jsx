@@ -21,7 +21,7 @@ export default function FormIn({ getData, getIngredient, id }) {
       stockMin: 0,
     };
 
-    axios.post('http://localhost:4000/ingredients', data).then(() => {
+    axios.post('http://localhost:4000/api/ingredients', data).then(() => {
       getData();
       setNewIngredient('');
     });

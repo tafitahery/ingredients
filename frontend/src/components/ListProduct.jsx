@@ -10,15 +10,15 @@ export default function ListProduct({ product, handleEdit, handleDelete }) {
       <td>
         <ul>
           {product.ingredients.map((ingredient) => (
-            <li key={ingredient.id}>
+            <li key={ingredient._id}>
               {ingredient.name}({ingredient.qty})
             </li>
           ))}
         </ul>
       </td>
       <td>
-        <button onClick={() => handleEdit(product.id)}>Modifier</button>
-        <button onClick={() => handleDelete(product.id)}>Supprimer</button>
+        <button onClick={() => handleEdit(product._id)}>Modifier</button>
+        <button onClick={() => handleDelete(product._id)}>Supprimer</button>
       </td>
     </tr>
   );

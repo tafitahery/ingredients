@@ -19,13 +19,13 @@ export default function FormProduct({ getData }) {
 
   const getIngredients = () => {
     axios
-      .get('http://localhost:4000/ingredients')
+      .get('http://localhost:4000/api/ingredients')
       .then(({ data }) => setIngredients(data));
   };
 
   const getIngredient = (id) => {
     return ingredients.find(
-      (ingredient) => ingredient.id.toString() === id.toString()
+      (ingredient) => ingredient._id.toString() === id.toString()
     );
   };
 
@@ -44,7 +44,7 @@ export default function FormProduct({ getData }) {
   const handleDelete = (id) => {
     const copyIngredient = [...ingredientProduct];
     const fileterdIngredient = copyIngredient.filter(
-      (ingredient) => ingredient.id !== id
+      (ingredient) => ingredient._id !== id
     );
     setIngredientProduct(fileterdIngredient);
   };
@@ -56,28 +56,28 @@ export default function FormProduct({ getData }) {
 
     const copyIngredient = [...ingredientProduct];
 
-    const id = ingredientSelected;
+    const _id = ingredientSelected;
     const name = ingredient.name;
     const qty = parseFloat(quantity);
 
     const newIngredient = {
-      id,
+      _id,
       name,
       qty,
     };
 
     const currentIngredientAdded = copyIngredient.find(
-      (ingredient) => ingredient.id === id
+      (ingredient) => ingredient._id === _id
     );
 
     if (currentIngredientAdded) {
       const filteredIngredients = copyIngredient.filter(
-        (ingredient) => ingredient.id !== id
+        (ingredient) => ingredient._id !== _id
       );
       setIngredientProduct([
         ...filteredIngredients,
         {
-          id,
+          _id,
           name,
           qty: qty + currentIngredientAdded.qty,
         },
@@ -100,11 +100,11 @@ export default function FormProduct({ getData }) {
 
     const data = {
       name: productName,
-      qauntity: 0,
+      quantity: 0,
       ingredients: ingredientProduct,
     };
 
-    axios.post('http://localhost:4000/products', data).then(() => {
+    axios.post('http://localhost:4000/api/products', data).then(() => {
       getData();
       setProductName('');
       setIngredientProduct([]);
@@ -135,7 +135,7 @@ export default function FormProduct({ getData }) {
           >
             <option value=""> --- </option>
             {ingredients.map((ingredient) => (
-              <OptionStock key={ingredient.id} ingredient={ingredient} />
+              <OptionStock key={ingredient._id} ingredient={ingredient} />
             ))}
           </select>
         </div>
@@ -159,9 +159,9 @@ export default function FormProduct({ getData }) {
         <ul>
           {ingredientProduct.map((ingredient) => (
             <ListIngredient
-              key={ingredient.id}
+              key={ingredient._id}
               ingredient={ingredient}
-              onClick={() => handleDelete(ingredient.id)}
+              onClick={() => handleDelete(ingredient._id)}
             />
           ))}
         </ul>

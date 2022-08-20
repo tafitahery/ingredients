@@ -13,14 +13,14 @@ function Product() {
 
   const getData = () => {
     axios
-      .get('http://localhost:4000/products')
+      .get('http://localhost:4000/api/products')
       .then(({ data }) => setProducts(data));
   };
 
   const handleDelete = (id) => {
     if (window.confirm('Voulez vous supprimer ce produit ?')) {
       axios
-        .delete('http://localhost:4000/products/' + id)
+        .delete('http://localhost:4000/api/products/' + id)
         .then(() => getData());
     }
   };
@@ -49,7 +49,7 @@ function Product() {
             <tbody>
               {products.map((product) => (
                 <ListProduct
-                  key={product.id}
+                  key={product._id}
                   product={product}
                   handleEdit={handleEdit}
                   handleDelete={handleDelete}

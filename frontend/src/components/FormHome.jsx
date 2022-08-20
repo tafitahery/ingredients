@@ -30,7 +30,7 @@ export default function FormHome({
 
     let promise = [];
     for (const ingredient of product.ingredients) {
-      const currentIngredient = getOneElement(ingredients, ingredient.id);
+      const currentIngredient = getOneElement(ingredients, ingredient._id);
       const data = {
         name: currentIngredient.name,
         quantity: Number(
@@ -42,18 +42,21 @@ export default function FormHome({
         stockMin: currentIngredient.stockMin,
       };
       promise.push(
-        axios.put('http://localhost:4000/ingredients/' + ingredient.id, data)
+        axios.put(
+          'http://localhost:4000/api/ingredients/' + ingredient._id,
+          data
+        )
       );
     }
     promise.push(
-      axios.put('http://localhost:4000/products/' + product.id, {
+      axios.put('http://localhost:4000/api/products/' + product._id, {
         name: product.name,
         quantity: product.quantity + parseFloat(quantity),
         ingredients: product.ingredients,
       })
     );
     Promise.all(promise).then(() => {
-      getAllElement('http://localhost:4000/ingredients', setIngredients);
+      getAllElement('http://localhost:4000/api/ingredients', setIngredients);
       setProductSelected('');
       setQuantity(0);
     });
@@ -67,7 +70,7 @@ export default function FormHome({
         <select id="name" value={productSelected} onChange={handleProduct}>
           <option value=""> --- </option>
           {products.map((product) => (
-            <option key={product.id} value={product.id}>
+            <option key={product._id} value={product._id}>
               {product.name}
             </option>
           ))}

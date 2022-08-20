@@ -10,11 +10,11 @@ function Home() {
 
   // comportement
   useEffect(() => {
-    getAllElement('http://localhost:4000/ingredients', setIngredients);
+    getAllElement('http://localhost:4000/api/ingredients', setIngredients);
   }, []);
 
   useEffect(() => {
-    getAllElement('http://localhost:4000/products', setProducts);
+    getAllElement('http://localhost:4000/api/products', setProducts);
   }, []);
 
   const getAllElement = (url, setter) => {
@@ -22,7 +22,7 @@ function Home() {
   };
 
   const getOneElement = (all, id) => {
-    return all.find((one) => one.id.toString() === id.toString());
+    return all.find((one) => one._id.toString() === id.toString());
   };
 
   // affichage (render)
@@ -51,7 +51,7 @@ function Home() {
             </thead>
             <tbody>
               {ingredients.map((ingredient) => (
-                <TableIn key={ingredient.id} ingredient={ingredient} />
+                <TableIn key={ingredient._id} ingredient={ingredient} />
               ))}
             </tbody>
           </table>

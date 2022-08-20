@@ -13,7 +13,7 @@ function Inventory() {
 
   const getData = () => {
     axios
-      .get('http://localhost:4000/ingredients')
+      .get('http://localhost:4000/api/ingredients')
       .then(({ data }) => setIngredients(data));
   };
 
@@ -30,7 +30,7 @@ function Inventory() {
         </thead>
         <tbody>
           {ingredients.map((ingredient) => (
-            <TableIn key={ingredient.id} ingredient={ingredient} />
+            <TableIn key={ingredient._id} ingredient={ingredient} />
           ))}
         </tbody>
       </table>

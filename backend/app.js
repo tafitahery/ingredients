@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const ingredientRouter = require('./routes/ingredient');
+const ingredientRoutes = require('./routes/ingredient');
+const productRoutes = require('./routes/product');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/ingredients', ingredientRouter);
+app.use('/api/ingredients', ingredientRoutes);
+app.use('/api/products', productRoutes);
 
 module.exports = app;

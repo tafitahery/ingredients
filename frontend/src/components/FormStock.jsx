@@ -6,59 +6,60 @@ import InputStock from './InputStock';
 
 export default function FormStock({ ingredients, getData, getIngredient }) {
   // state
+  const [stock, setStock] = useState({
+    ingredientSelected: '',
+    quantity: 0,
+    minStock: 10,
+  });
+
   const [action, setAction] = useState('in');
-  const [ingredientSelected, setIngredientSelected] = useState('');
-  const [quantity, setQuantity] = useState(0.0);
-  const [minStock, setMinStock] = useState(10);
 
   // comportement
-  const handleRadio = (event) => {
+  const handleAction = (event) => {
     setAction(event.target.id);
   };
 
-  const handleSelect = (event) => {
-    setIngredientSelected(event.target.value);
+  const handleChange = (event) => {
+    setStock((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const handleQuantity = (event) => {
-    setQuantity(event.target.value);
-  };
-
-  const handleMinStock = (event) => {
-    setMinStock(event.target.value);
-  };
-
-  const ingredient = getIngredient(ingredientSelected);
+  const ingredient = getIngredient(stock.ingredientSelected);
 
   const newQuantity = ingredient
     ? action === 'init'
-      ? parseFloat(quantity)
+      ? parseFloat(stock.quantity)
       : action === 'in'
-      ? parseFloat(quantity) + ingredient.quantity
-      : ingredient.quantity - parseFloat(quantity)
+      ? parseFloat(stock.quantity) + ingredient.quantity
+      : ingredient.quantity - parseFloat(stock.quantity)
     : 0;
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!ingredientSelected) {
+    if (!stock.ingredientSelected) {
       alert('Vous devez remplir le champ nom');
       return;
     }
 
     const data = {
-      name: ingredient.name,
+      ...ingredient,
       quantity: newQuantity ? newQuantity : ingredient.quantity,
-      stockMin: parseFloat(minStock),
+      stockMin: parseFloat(stock.minStock),
     };
 
     axios
-      .put('http://localhost:4000/api/ingredients/' + ingredientSelected, data)
+      .put(
+        'http://localhost:4000/api/ingredients/' + stock.ingredientSelected,
+        data
+      )
       .then(() => {
         getData();
-        setIngredientSelected('');
-        setQuantity(0.0);
-        setMinStock(10);
+        setStock((prev) => ({
+          ...prev,
+          ingredientSelected: '',
+          quantity: 0,
+          minStock: 10,
+        }));
       });
   };
 
@@ -66,16 +67,21 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="action">
-        <RadioStock action={action} handleRadio={handleRadio} value="init" />
+        <RadioStock action={action} handleRadio={handleAction} value="init" />
         <label htmlFor="init">Initial</label>
-        <RadioStock action={action} handleRadio={handleRadio} value="in" />
+        <RadioStock action={action} handleRadio={handleAction} value="in" />
         <label htmlFor="in">Entrée</label>
-        <RadioStock action={action} handleRadio={handleRadio} value="out" />
+        <RadioStock action={action} handleRadio={handleAction} value="out" />
         <label htmlFor="out">Sortie</label>
       </div>
       <div>
         <label htmlFor="name">Nom</label>
-        <select id="name" value={ingredientSelected} onChange={handleSelect}>
+        <select
+          id="name"
+          name="ingredientSelected"
+          value={stock.ingredientSelected}
+          onChange={handleChange}
+        >
           <option value=""> --- </option>
           {ingredients.map((ingredient) => (
             <OptionStock key={ingredient._id} ingredient={ingredient} />
@@ -85,13 +91,23 @@ export default function FormStock({ ingredients, getData, getIngredient }) {
       <div>
         <label htmlFor="quantity">
           Quantité (
-          {quantity ? newQuantity : ingredient ? ingredient.quantity : 0})
+          {stock.quantity ? newQuantity : ingredient ? ingredient.quantity : 0})
         </label>
-        <InputStock id="quantity" value={quantity} onChange={handleQuantity} />
+        <InputStock
+          id="quantity"
+          name="quantity"
+          value={stock.quantity}
+          onChange={handleChange}
+        />
       </div>
       <div>
         <label htmlFor="minStock">Stock minimum</label>
-        <InputStock id="minStock" value={minStock} onChange={handleMinStock} />
+        <InputStock
+          id="minStock"
+          name="minStock"
+          value={stock.minStock}
+          onChange={handleChange}
+        />
       </div>
       <button>Valider</button>
     </form>

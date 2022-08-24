@@ -22,7 +22,7 @@ function Ingredient() {
 
   const getIngredient = (id) => {
     return ingredients.find(
-      (ingredient) => ingredient._id.toString() === id.toString()
+      (ingredient) => ingredient._id.toString() === id?.toString()
     );
   };
 

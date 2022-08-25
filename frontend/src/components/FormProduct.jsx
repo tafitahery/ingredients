@@ -6,11 +6,13 @@ import ListIngredient from './ListIngredient';
 
 export default function FormProduct({ getData }) {
   // state
-  const [productName, setProductName] = useState('');
   const [ingredients, setIngredients] = useState([]);
-  const [ingredientSelected, setIngredientSelected] = useState('');
   const [ingredientProduct, setIngredientProduct] = useState([]);
-  const [quantity, setQuantity] = useState(0.0);
+  const [newProduct, setNewProduct] = useState({
+    productName: '',
+    ingredientSelected: '',
+    quantity: 0,
+  });
 
   // comportement
   useEffect(() => {
@@ -25,20 +27,15 @@ export default function FormProduct({ getData }) {
 
   const getIngredient = (id) => {
     return ingredients.find(
-      (ingredient) => ingredient._id.toString() === id.toString()
+      (ingredient) => ingredient._id.toString() === id?.toString()
     );
   };
 
-  const handleName = (event) => {
-    setProductName(event.target.value);
-  };
-
-  const handleSelect = (event) => {
-    setIngredientSelected(event.target.value);
-  };
-
-  const handleQuantity = (event) => {
-    setQuantity(event.target.value);
+  const handleChange = (event) => {
+    setNewProduct((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleDelete = (id) => {
@@ -49,16 +46,16 @@ export default function FormProduct({ getData }) {
     setIngredientProduct(fileterdIngredient);
   };
 
-  const ingredient = getIngredient(ingredientSelected);
+  const ingredient = getIngredient(newProduct.ingredientSelected);
 
   const handleAdd = () => {
-    if (!ingredientSelected) return;
+    if (!newProduct.ingredientSelected) return;
 
     const copyIngredient = [...ingredientProduct];
 
-    const _id = ingredientSelected;
+    const _id = newProduct.ingredientSelected;
     const name = ingredient.name;
-    const qty = parseFloat(quantity);
+    const qty = parseFloat(newProduct.quantity);
 
     const newIngredient = {
       _id,
@@ -86,27 +83,26 @@ export default function FormProduct({ getData }) {
       setIngredientProduct([...copyIngredient, newIngredient]);
     }
 
-    setIngredientSelected('');
-    setQuantity(0);
+    setNewProduct((prev) => ({ ...prev, ingredientSelected: '', quantity: 0 }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!productName) {
+    if (!newProduct.productName) {
       alert('Vous devez remplir le champ nom');
       return;
     }
 
     const data = {
-      name: productName,
+      name: newProduct.productName,
       quantity: 0,
       ingredients: ingredientProduct,
     };
 
     axios.post('http://localhost:4000/api/products', data).then(() => {
       getData();
-      setProductName('');
+      setNewProduct((prev) => ({ ...prev, productName: '' }));
       setIngredientProduct([]);
     });
   };
@@ -119,9 +115,10 @@ export default function FormProduct({ getData }) {
         <input
           type="text"
           id="name"
+          name="productName"
           placeholder="Nom du nouveau produit"
-          value={productName}
-          onChange={handleName}
+          value={newProduct.productName}
+          onChange={handleChange}
         />
       </div>
 
@@ -130,8 +127,9 @@ export default function FormProduct({ getData }) {
           <label htmlFor="ingredient">Ingredient</label>
           <select
             id="ingredient"
-            value={ingredientSelected}
-            onChange={handleSelect}
+            name="ingredientSelected"
+            value={newProduct.ingredientSelected}
+            onChange={handleChange}
           >
             <option value=""> --- </option>
             {ingredients.map((ingredient) => (
@@ -144,8 +142,9 @@ export default function FormProduct({ getData }) {
           <label htmlFor="quantity">Quantité</label>
           <InputStock
             id="quantity"
-            value={quantity}
-            onChange={handleQuantity}
+            name="quantity"
+            value={newProduct.quantity}
+            onChange={handleChange}
           />
         </div>
         <div>

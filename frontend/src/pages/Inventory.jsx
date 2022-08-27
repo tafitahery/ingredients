@@ -19,22 +19,24 @@ function Inventory() {
 
   // affichage (render)
   return (
-    <div className="item">
+    <div>
       <h1>Inventaire</h1>
-      <table className="tableIn">
-        <thead>
-          <tr>
-            <th>Ingredient</th>
-            <th>Quantite</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ingredients.map((ingredient) => (
-            <TableIn key={ingredient._id} ingredient={ingredient} />
-          ))}
-        </tbody>
-      </table>
-      <button className="valid-btn">Exporter</button>
+      <div className="item">
+        <table className="tableIn">
+          <thead>
+            <tr>
+              <th>Ingredient</th>
+              <th>Quantite</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ingredients.map((ingredient) => (
+              <TableIn key={ingredient._id} ingredient={ingredient} />
+            ))}
+          </tbody>
+        </table>
+        <button className="valid-btn">Exporter</button>
+      </div>
     </div>
   );
 }

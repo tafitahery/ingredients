@@ -6,6 +6,7 @@ label {
 
 input[type='text'],
 input[type='number'],
+input[type='password'],
 select {
   width: 75%;
   padding: 12px 20px;
@@ -45,6 +46,11 @@ form li {
 
 .delete:hover {
   background-color: red;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
 }
 
 form button,

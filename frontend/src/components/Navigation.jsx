@@ -22,6 +22,9 @@ export default function Navigation() {
         <li>
           <NavLink to="/inventory">Inventaire</NavLink>
         </li>
+        <li>
+          <NavLink to="/user">Utilisateur</NavLink>
+        </li>
       </ul>
     </nav>
   );

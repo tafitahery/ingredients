@@ -1,23 +1,41 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 function User() {
   // state
   const [user, setUser] = useState({
-    name: '',
+    userName: '',
     password: '',
     confirm: '',
   });
 
   // comportement
   const handleChange = (event) => {
-    setUser((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    setUser((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!user.name || !user.password || user.password !== user.confirm) {
+    if (!user.userName || !user.password || user.password !== user.confirm) {
       alert('Veuiller bien remplir les champs');
     } else {
+      const data = {
+        userName: user.userName,
+        password: user.password,
+      };
+      axios
+        .post('http://localhost:4000/api/auth/signin', data)
+        .then(() =>
+          setUser((prev) => ({
+            ...prev,
+            userName: '',
+            password: '',
+            confirm: '',
+          }))
+        );
     }
   };
 
@@ -32,9 +50,9 @@ function User() {
             <label htmlFor="name">Nom</label>
             <input
               type="text"
-              name="name"
+              name="userName"
               placeholder="nom..."
-              value={user.name}
+              value={user.userName}
               onChange={handleChange}
             />
             <label htmlFor="password">Mot de passe</label>

@@ -26,16 +26,14 @@ function User() {
         userName: user.userName,
         password: user.password,
       };
-      axios
-        .post('http://localhost:4000/api/auth/signin', data)
-        .then(() =>
-          setUser((prev) => ({
-            ...prev,
-            userName: '',
-            password: '',
-            confirm: '',
-          }))
-        );
+      axios.post('http://localhost:4000/api/auth/signup', data).then(() =>
+        setUser((prev) => ({
+          ...prev,
+          userName: '',
+          password: '',
+          confirm: '',
+        }))
+      );
     }
   };
 

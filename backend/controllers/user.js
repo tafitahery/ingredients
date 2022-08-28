@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 
@@ -27,22 +28,23 @@ exports.login = (req, res, next) => {
         return res
           .status(400)
           .json({ message: 'Erreur sur le pair nom/ mot de passe' });
-      } else {
-        bcrypt
-          .compare(req.body.password, password)
-          .then((valid) => {
-            if (!valid) {
-              return res
-                .status(400)
-                .json({ message: 'Erreur sur le pair nom/ mot de passe' });
-            } else {
-              return res
-                .status(200)
-                .json({ message: 'Utilisateur connecté !' });
-            }
-          })
-          .catch((error) => res.status(500).json({ error }));
       }
+      bcrypt
+        .compare(req.body.password, password)
+        .then((valid) => {
+          if (!valid) {
+            return res
+              .status(400)
+              .json({ message: 'Erreur sur le pair nom/ mot de passe' });
+          }
+          res.status(200).json({
+            userId: user._id,
+            token: jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', {
+              expiresIn: '24h',
+            }),
+          });
+        })
+        .catch((error) => res.status(500).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };

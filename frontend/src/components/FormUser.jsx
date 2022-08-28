@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-export default function FormUser() {
+export default function FormUser({ getData }) {
   // state
   const [user, setUser] = useState({
     userName: '',
@@ -26,14 +26,15 @@ export default function FormUser() {
         userName: user.userName,
         password: user.password,
       };
-      axios.post('http://localhost:4000/api/auth/signup', data).then(() =>
+      axios.post('http://localhost:4000/api/auth/signup', data).then(() => {
         setUser((prev) => ({
           ...prev,
           userName: '',
           password: '',
           confirm: '',
-        }))
-      );
+        }));
+        getData();
+      });
     }
   };
 

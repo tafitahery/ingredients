@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import FormUser from '../components/FormUser';
+import ListUser from '../components/ListUser';
 
 function User() {
   // state
@@ -17,6 +18,16 @@ function User() {
       .then(({ data }) => setUsers(data));
   };
 
+  const handleEdit = (id) => {};
+
+  const handleDelete = (id) => {
+    if (window.confirm('Voulez vous supprimer cet utilisateur ?')) {
+      axios
+        .delete('http://localhost:4000/api/auth/' + id)
+        .then(() => getData());
+    }
+  };
+
   // affichage (render)
   return (
     <div className="page">
@@ -24,7 +35,7 @@ function User() {
       <div className="container">
         <div className="item">
           <h2>Nouvel utilisateur</h2>
-          <FormUser />
+          <FormUser getData={getData} />
         </div>
         <div className="item">
           <h2>Liste des utilisateurs</h2>
@@ -37,12 +48,12 @@ function User() {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user.userName}</td>
-                  <td>
-                    <button>Modifier</button> <button>Supprimer</button>
-                  </td>
-                </tr>
+                <ListUser
+                  key={user._id}
+                  user={user}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
+                />
               ))}
             </tbody>
           </table>

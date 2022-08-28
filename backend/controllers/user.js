@@ -20,7 +20,32 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.login = (req, res, next) => {};
+exports.login = (req, res, next) => {
+  User.findOne({ userName: req.body.userName })
+    .then((user) => {
+      if (!user) {
+        return res
+          .status(400)
+          .json({ message: 'Erreur sur le pair nom/ mot de passe' });
+      } else {
+        bcrypt
+          .compare(req.body.password, password)
+          .then((valid) => {
+            if (!valid) {
+              return res
+                .status(400)
+                .json({ message: 'Erreur sur le pair nom/ mot de passe' });
+            } else {
+              return res
+                .status(200)
+                .json({ message: 'Utilisateur connecté !' });
+            }
+          })
+          .catch((error) => res.status(500).json({ error }));
+      }
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
 
 exports.getAllUser = (req, res, next) => {
   User.find()
